@@ -20,6 +20,7 @@
   mesa,
   pango,
   pciutils,
+  xdg-utils,
 }:
 
 stdenv.mkDerivation rec {
@@ -97,6 +98,10 @@ stdenv.mkDerivation rec {
     done
     install -Dm444 icons/symbolic.svg \
       $out/share/icons/hicolor/symbolic/apps/zotero-symbolic.svg
+
+    # Replace xdg-open
+    mkdir -p $out/usr/bin
+    ln -sf ${xdg-utils}/bin/xdg-open $out/usr/bin/xdg-open
 
     runHook postInstall
   '';
